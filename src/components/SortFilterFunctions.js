@@ -5,9 +5,18 @@ class SortFilterFunctions extends Component {
   render(){
     return(
       <div>
-        <input name="name" onClick={this.props.sortName} />
-        <input name="weight" onClick={this.props.sortWeight} />
-        <input name="grease" type="checkbox" onClick={this.props.greasy} />
+        <label>
+          Sort By:&nbsp;
+          <select>
+            <option value="name" name="name" onClick={this.props.sortName}>Name</option>
+            <option value="weight" name="weight" onClick={this.props.sortWeight}>Weight</option>
+          </select>&nbsp;&nbsp;&nbsp;
+          Greased <input
+            name="grease"
+            type="checkbox"
+            onClick={this.props.greasy}
+            />
+        </label>
       </div>
     )
   }
