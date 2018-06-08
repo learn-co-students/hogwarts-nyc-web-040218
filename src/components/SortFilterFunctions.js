@@ -4,10 +4,14 @@ class SortFilterFunctions extends Component {
 
   render(){
     return(
-      <div>
-        <button onClick={this.props.sortName} >Sort Name</button>
-        <button name="weight" onClick={this.props.sortWeight}>Sort Weight</button>
-        <input name="grease" type="checkbox" onClick={this.props.greasy} />
+      <div className="sortingBox">
+        <select onChange={this.props.sortingCriteria}>
+          <option value="all">All</option>
+          <option value="name">Name</option>
+          <option value="weight">Weight</option>
+        </select> &nbsp;&nbsp;&nbsp;
+          Greased: &nbsp;
+          <input name="grease" type="checkbox" onClick={this.props.greasy} />
       </div>
     )
   }

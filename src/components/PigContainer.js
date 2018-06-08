@@ -15,25 +15,25 @@ class PigContainer extends Component{
     };
   }
 
-  // generateHogCards = () => {
-  //   if(this.state.sort === null){
-  //     return this.state.hogs.map((name, idx) => (
-  //       <HogCard key={idx} id={UUID()} name={name} img={name.name} />
-  //     ))
-  //   }else if (this.state.sort === "name"){
+  generateHogCards = () => {
+    if(this.state.sort === null){
+      return this.state.hogs.map((name, idx) => (
+        <HogCard key={idx} id={UUID()} name={name} img={name.name} />
+      ))
+    }else if (this.state.sort === "name"){
       
-  //   }else if (this.state.sort === "weight"){
-  //     const copiedHogs = [...this.state.hogs]
-  //     const sortedHogs = copiedHogs.sort(function (a, b) {
-  //       return a['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] - b['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
-  //     })
-  //     this.setState({
-  //       hogs: sortedHogs
-  //     })
-  //   }
-  // }
+    }else if (this.state.sort === "weight"){
+      const copiedHogs = [...this.state.hogs]
+      const sortedHogs = copiedHogs.sort(function (a, b) {
+        return a['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] - b['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
+      })
+      this.setState({
+        hogs: sortedHogs
+      })
+    }
+  }
 
-  sortByName = (event) => {
+  sortByName = () => {
     const copiedHogs = [...this.state.hogs]
     const sortedHogs = copiedHogs.sort(function(a, b) {
       var nameA = a.name.toUpperCase();
@@ -51,7 +51,17 @@ class PigContainer extends Component{
     })
   }
 
-  sortByWeight = (event) => {
+  sortingCriteria = (e) => {
+    if (e.target.value === "name"){
+      this.sortByName();
+    }else if (e.target.value === "weight"){
+      this.sortByWeight();
+    }else if (e.target.value === "all"){
+      console.log("fix me");
+    }
+  }
+
+  sortByWeight = () => {
     const copiedHogs = [...this.state.hogs]
     const sortedHogs = copiedHogs.sort(function(a, b) {
       return a['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] - b['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
@@ -71,14 +81,12 @@ class PigContainer extends Component{
   }
 
   render() {
-    // console.log("DEAR GOD RENDER:", this.state)
     const sheeple = this.generateHogCards()
     return (
       <div className="App">
         <Nav />
         <SortFilterFunctions
-          sortWeight={this.sortByWeight}
-          sortName={this.sortByName}
+          sortingCriteria={this.sortingCriteria}
           greasy={this.greasedOrNot}  />
       <div className="ui link cards">
           {sheeple}
