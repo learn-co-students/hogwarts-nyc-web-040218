@@ -8,6 +8,10 @@
   display: inline;
 }
 
+.spacing{
+    margin: 20px;
+}
+
 .TwirlyPig:hover {
   transform: scale(1.5);
 }
@@ -64,7 +68,7 @@ ul {
 
 .subtleText {
   color: #D1D1D1;
-  font-size: .75em; 
+  font-size: .75em;
 }
 
 
