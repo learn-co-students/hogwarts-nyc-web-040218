@@ -6,7 +6,7 @@ class SortFilterFunctions extends Component {
     return(
       <div className="sortingBox">
         <select onChange={this.props.sortingCriteria}>
-          <option value="all">All</option>
+          <option value="all">Sort</option>
           <option value="name">Name</option>
           <option value="weight">Weight</option>
         </select> &nbsp;&nbsp;&nbsp;

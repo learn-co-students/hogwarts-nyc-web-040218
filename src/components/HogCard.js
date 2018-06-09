@@ -11,7 +11,6 @@ export default class HogCard extends Component {
 
   descriptionToggle = (event) => {
     let div=document.getElementById(this.props.id)
-    console.log(div)
 
     if (div.style.display === "none"){
       div.style.display = "block";

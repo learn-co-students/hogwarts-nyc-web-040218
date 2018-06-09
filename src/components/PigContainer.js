@@ -10,27 +10,30 @@ class PigContainer extends Component{
     super();
 
     this.state = {
+      originalHogs: hogs,
       hogs: hogs,
-      sort: null
+      sort: "all"
     };
   }
 
   generateHogCards = () => {
-    if(this.state.sort === null){
+    if(this.state.sort === "all"){
       return this.state.hogs.map((name, idx) => (
         <HogCard key={idx} id={UUID()} name={name} img={name.name} />
       ))
     }else if (this.state.sort === "name"){
-      
+        return this.sortByName().map((name, idx) => (
+          <HogCard key={idx} id={UUID()} name={name} img={name.name} />
+        ))
     }else if (this.state.sort === "weight"){
-      const copiedHogs = [...this.state.hogs]
-      const sortedHogs = copiedHogs.sort(function (a, b) {
-        return a['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] - b['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
-      })
-      this.setState({
-        hogs: sortedHogs
-      })
+      return this.sortByWeight().map((name, idx) => (
+        <HogCard key={idx} id={UUID()} name={name} img={name.name} />
+      ))
     }
+
+    return this.state.hogs.map((name, idx) => (
+      <HogCard key={idx} id={UUID()} name={name} img={name.name} />
+    ))
   }
 
   sortByName = () => {
@@ -41,23 +44,28 @@ class PigContainer extends Component{
       if (nameA < nameB) {
         return -1;
       }
-      if (nameA > nameB) {
+      else if (nameA > nameB) {
         return 1;
+      }else{
+        return 0;
       }
     })
-    // return sortedHogs;
-    this.setState({
-      hogs: sortedHogs
-    })
+    return sortedHogs
   }
 
   sortingCriteria = (e) => {
     if (e.target.value === "name"){
-      this.sortByName();
+      this.setState({
+        sort: "name"
+      })
     }else if (e.target.value === "weight"){
-      this.sortByWeight();
+      this.setState({
+        sort: "weight"
+      })
     }else if (e.target.value === "all"){
-      console.log("fix me");
+      this.setState({
+        sort: "all"
+      })
     }
   }
 
@@ -66,18 +74,22 @@ class PigContainer extends Component{
     const sortedHogs = copiedHogs.sort(function(a, b) {
       return a['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] - b['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
     })
-    // return sortedHogs;
-    this.setState({
-      hogs: sortedHogs
-    })
+    return sortedHogs;
   }
 
   greasedOrNot = (event) => {
-    const copiedHogs = [...this.state.hogs]
-    const greasedHogs = copiedHogs.filter( hog => hog['greased'] === true )
-    this.setState({
-      hogs: greasedHogs
-    })
+    const greased = event.target.checked;
+    if (greased){
+      const copiedHogs = [...this.state.hogs]
+      const greasedHogs = copiedHogs.filter(hog => hog['greased'] === true)
+      this.setState({
+        hogs: greasedHogs
+      });
+    }else{
+      this.setState({
+        hogs: this.state.originalHogs
+      });
+    }
   }
 
   render() {
@@ -88,7 +100,7 @@ class PigContainer extends Component{
         <SortFilterFunctions
           sortingCriteria={this.sortingCriteria}
           greasy={this.greasedOrNot}  />
-      <div className="ui link cards">
+        <div className="ui link cards">
           {sheeple}
         </div>
       </div>
